@@ -48,7 +48,7 @@ font-3=font\-logos:size=10;4
 font-4=FontAwesome5Brands:size=11;2
 font-5=IPAGothic:size=11;2
 
-modules-right = playerctl alsa time powermenu
+modules-right = playerctl alsa bluetooth time powermenu
 
 ; i3
 ; modules-left = launcher i3 xwindow
@@ -184,7 +184,7 @@ label-padding = 2
 
 
 [module/alsa]
-type = internal/alsa
+type = internal/pulseaudio
 
 format-volume-margin = 2
 format-volume = <ramp-volume><label-volume>
@@ -254,10 +254,10 @@ menu-0-0 = 
 menu-0-0-exec = menu-open-1
 
 menu-2-0 = 
-menu-2-0-exec = systemctl reboot
+menu-2-0-exec = systemctl reboot || loginctl reboot
 
 menu-3-0 = 
-menu-3-0-exec = systemctl poweroff
+menu-3-0-exec = systemctl poweroff || loginctl reboot
 
 menu-1-0 = 
 menu-1-0-exec = i3-msg exit || openbox --exit || bspc quit
@@ -272,6 +272,17 @@ click-left = playerctl play-pause
 click-right = playerctl next
 tail = true
 interval = 0
+
+[module/bluetooth]
+type = custom/script
+exec = ~/.config/polybar/blue.sh
+interval = 2
+click-left = exec blueberry
+click-right = exec ~/.config/polybar/togl_blue.sh
+format-padding = 1
+#format-background = #000000
+#format-foreground = #ffffff
+
 
 [settings]
 screenchange-reload = true
